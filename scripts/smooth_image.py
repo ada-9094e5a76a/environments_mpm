@@ -1,4 +1,10 @@
-from envtest import smooth_image
+try:
+    from envtest import smooth_image
+except ImportError:
+    from skimage.filters import gaussian
+
+    def smooth_image(image, sigma):
+        return gaussian(image, sigma=sigma, mode="nearest", preserve_range=True)
 
 from skimage import data
 import matplotlib.pyplot as plt
